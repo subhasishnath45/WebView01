@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -72,11 +73,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
         if (web.canGoBack()){
             web.goBack();
         }else{
-            super.onBackPressed();
+//            super.onBackPressed();
+            new AlertDialog.Builder(this).setMessage("Are you sure, you want to exit ?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    MainActivity.super.onBackPressed();
+                }
+            }).setNegativeButton("No",null).show();
         }
     }
 }
